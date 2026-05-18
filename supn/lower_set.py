@@ -64,7 +64,7 @@ class LowerSet:
         self.Lambda = torch.as_tensor(Lambda)
         return self.Lambda
 
-    def augment(self, new_indices, A=None, inplace=False):
+    def append(self, new_indices, A=None, inplace=False):
         if A is None and (not inplace or self.Lambda is None):
             raise ValueError('Either A must be supplied, or inplace=True')
         if not hasattr(new_indices, '__iter__'):
@@ -109,8 +109,8 @@ class LowerSet:
             # Instead of augmenting everything and taking torch.unique at the
             # end, only augment with the new elements.
             if new_locs.any():
-                new_A = self.augment(downward_completion[..., new_locs].T,
-                                     A=new_A)
+                new_A = self.append(downward_completion[..., new_locs].T,
+                                    A=new_A)
 
         if inplace:
             self.Lambda = new_A

@@ -140,19 +140,18 @@ def test_exception_handling():
 
     # Calling dx without evaluation point or precomputed data
     try:
-        derivative = net.dx(order=1)
+        net.dx(order=1)
     except RuntimeError:
         pass
 
     # Derivatives over order 4
     try:
-        derivative = net.dx(x, order=5)
+        net.dx(x, order=5)
     except ValueError:
         pass
 
     # Three-term recurrence with 2D input
     try:
-        cache = net._three_term_recurrence(x, 0)
+        net._three_term_recurrence(x, 0)
     except ValueError:
         pass
-

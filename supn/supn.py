@@ -38,11 +38,12 @@ class SUPN(nn.Module):
                 domain_transform.shape[0] != self.d
                 or domain_transform.shape[1] != 2
              ):
-                raise ValueError(
-                    f'Expected torch.Tensor of shape ({self.d}, 2)'
-                )
+            raise ValueError(
+                f'Expected torch.Tensor of shape ({self.d}, 2)'
+            )
         else:
-            self.dilation = 2 / (domain_transform[:, 1] - domain_transform[:, 0])
+            self.dilation = (2 / (domain_transform[:, 1] -
+                                  domain_transform[:, 0]))
             self.a = domain_transform[:, 0]
 
     def forward(self, x: torch.Tensor, recompute=False) -> torch.Tensor:
@@ -147,7 +148,8 @@ class SUPN(nn.Module):
         '''
         if self.precomputed_chebyshev_matrix is None and x is None:
             raise RuntimeError(
-                'Must supply `x`, or call supn.precompute_chebyshev_data before supn.dx')
+                'Must supply `x`, or call supn.precompute_chebyshev_data '
+                'before supn.dx')
 
         A = []
         S = []
@@ -158,7 +160,8 @@ class SUPN(nn.Module):
             raise ValueError(
                 'Only analytical derivatives up to order 4 are implemented')
 
-        T_combination = (self.T_combination if (x is None or x.shape[0] == self.ntrain)
+        T_combination = (self.T_combination if
+                         (x is None or x.shape[0] == self.ntrain)
                          else self._compute_chebyshev_data(x, max_order))
 
         # --------------------------------------------------------------------
@@ -250,4 +253,3 @@ class SUPN(nn.Module):
                 chebyshev_mat[:, i] *= chebyshev_cache[k, :, n]
 
         return chebyshev_mat.to(self.device)
-

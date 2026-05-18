@@ -44,16 +44,16 @@ def test_enumeration():
                                                      '-product space')
 
 
-def test_augment():
+def test_append():
     lower_set = LowerSet(d=2, max_degree=5, space='total_degree')
-    lower_set.augment([[4, 3]], inplace=True)
+    lower_set.append([[4, 3]], inplace=True)
     assert (lower_set.Lambda[-1, :].tolist() == [4, 3])
-    lower_set.augment([[2, 6]], A=torch.as_tensor([[1, 2], [2, 3]]))
+    lower_set.append([[2, 6]], A=torch.as_tensor([[1, 2], [2, 3]]))
 
 
 def test_lower_completion():
     lower_set = LowerSet(d=2, space='total_degree')
-    new_A = lower_set.augment([[2, 6]], A=torch.as_tensor([[1, 2], [2, 3]]))
+    new_A = lower_set.append([[2, 6]], A=torch.as_tensor([[1, 2], [2, 3]]))
     assert not lower_set.is_lower(new_A)
     lower_completion = lower_set.get_lower_completion(new_A, inplace=True)
     assert lower_set.is_lower(lower_completion)
@@ -84,19 +84,19 @@ def test_exception_handling():
 
     # Nothing specified to augment
     try:
-        lower_set.augment([4, 2])
+        lower_set.append([4, 2])
     except ValueError:
         pass
 
     # Augmenting with non-iterable
     try:
-        lower_set.augment(4, inplace=True)
+        lower_set.append(4, inplace=True)
     except ValueError:
         pass
 
     # Incorrect dimensions
     try:
-        lower_set.augment([[1, 2, 3]], inplace=True)
+        lower_set.append([[1, 2, 3]], inplace=True)
     except ValueError:
         pass
 
