@@ -165,7 +165,7 @@ class SUPN(nn.Module):
                          else self._compute_chebyshev_data(x, max_order))
 
         # --------------------------------------------------------------------
-        # A[r, k, i, j] = \mat{A} T_combination[r, k, i, :]
+        # A[r, k, i, :] = \mat{A} T_combination[r, k, i, :]
         # S[r, k, i, j] = d^r / dx^r (\sigma( \prod_{k=1}^d T_{j_k} )|_{
         #     x=x^{(i)}_k}
         # --------------------------------------------------------------------
