@@ -1,6 +1,6 @@
 [build-system]
-requires = ['setuptools >= 77.0.3', 'wheel']
-build-backend = 'setuptools.build_meta'
+requires = ['hatchling']
+build-backend = 'hatchling.build'
 
 [project]
 name = 'supn'
@@ -21,8 +21,8 @@ license = 'MIT'
 [project.urls]
 Homepage = 'https://cee-gitlab.sandia.gov/zbmorro/supn'
 
-[tool.setuptools.dynamic]
-readme = {file = ["README.md"]}
+[tool.hatch.readme]
+source = 'README.md'
 
 # [tool.pytest]
 # minversion = "9.0"
