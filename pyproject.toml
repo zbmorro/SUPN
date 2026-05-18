@@ -1,0 +1,32 @@
+[build-system]
+requires = ['setuptools >= 77.0.3', 'wheel']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'supn'
+description = 'Shallow Universal Polynomial Networks'
+dynamic = ['readme']
+version = '0.1'
+dependencies = ['torch']
+authors = [{name = 'Zachary Morrow'}, {email = 'zbmorro@sandia.gov'}]
+license = 'MIT' 
+
+# [project.optional-dependencies]
+# test = [
+#     "pytest",
+#     "pytest-cov",
+#     "pytest-mock",
+# ]
+
+[project.urls]
+Homepage = 'https://cee-gitlab.sandia.gov/zbmorro/supn'
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"]}
+
+# [tool.pytest]
+# minversion = "9.0"
+# addopts = ["-ra", "-q"]
+# testpaths = [
+#     "tests",
+# ]
