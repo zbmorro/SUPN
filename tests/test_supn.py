@@ -127,9 +127,9 @@ def test_domain_transform():
     diff = (net._transform(grid).flatten() - grid_c.flatten()).norm()
     assert diff < 1e-13, 'Error in 2D domain transform'
 
-    x = torch.linspace(-1, 1, 51)
+    x = torch.linspace(-1, 1, 51)[:, None]
     net = SUPN(max_degree=3, width=10, d=1)
-    derivatives = net.dx(x[:, None], order=[1, 2, 3, 4]).reshape(4, x.shape[0])
+    derivatives = net.dx(x, order=[1, 2, 3, 4]).reshape(4, x.shape[0])
     net.set_domain_transform(torch.as_tensor([[3, 7]]))
     x = torch.linspace(3, 7, 51)[:, None]
     new_derivatives = net.dx(x, order=[1, 2, 3, 4]).reshape(4, x.shape[0])
@@ -137,6 +137,12 @@ def test_domain_transform():
     err = ((new_derivatives * adjustment - derivatives).flatten().norm() /
            derivatives.flatten().norm())
     assert err < 1e-13, 'Error in differentiating affine transform (1D)'
+
+    net.precompute_data(x)
+    _derivatives = net.dx(order=[1, 2, 3, 4]).reshape(4, x.shape[0])
+    print(new_derivatives, _derivatives)
+    assert ((_derivatives-new_derivatives).norm() / new_derivatives.norm()
+            < 1e-13), 'Error in precomputation'
 
     x, y = torch.linspace(-1, 1, 51), torch.linspace(-1, 1, 51)
     (X, Y) = torch.meshgrid(x, y, indexing='ij')
