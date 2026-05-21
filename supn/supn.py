@@ -17,6 +17,7 @@ class SUPN(nn.Module):
         self.model.append(nn.Tanh())
         self.model.append(nn.Linear(width, 1, bias=False))
         self.precomputed_chebyshev_matrix = None
+        self.T_combination = None
         self.ntrain = ntrain
         self.width = width
         self.d = d
@@ -148,7 +149,7 @@ class SUPN(nn.Module):
         '''
         if self.precomputed_chebyshev_matrix is None and x is None:
             raise RuntimeError(
-                'Must supply `x`, or call supn.precompute_chebyshev_data '
+                'Must supply `x`, or call supn.precompute_data '
                 'before supn.dx')
 
         A = []
@@ -161,7 +162,8 @@ class SUPN(nn.Module):
                 'Only analytical derivatives up to order 4 are implemented')
 
         T_combination = (self.T_combination if
-                         (x is None or x.shape[0] == self.ntrain)
+                         ((x is None or x.shape[0] == self.ntrain) and
+                          self.T_combination is not None)
                          else self._compute_chebyshev_data(x, max_order))
 
         # --------------------------------------------------------------------
