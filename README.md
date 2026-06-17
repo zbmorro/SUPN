@@ -19,18 +19,6 @@ cd supn
 pip install -e .
 ```
 
-## Citing this work
-
-```bibtex
-@misc{morrow2025supn,
-    title = {SUPN: Shallow Universal Polynomial Networks},
-    author = {Zachary Morrow and Michael Penwarden and Brian Chen and Aurya Javeed and Akil Narayan and John D. Jakeman},
-    archivePrefix = {arXiv},
-    eprint={2511.21414},
-    year = {2025},
-}
-```
-
 ## Usage
 See the [`tutorials`](https://github.com/) folder.
 
@@ -42,9 +30,24 @@ See the [`tutorials`](https://github.com/) folder.
 
 Development of this software was funded by Sandia National Laboratories' Laboratory-Directed Research and Development (LDRD) program.
 
-## References
+## Citations
 
-[1] Z. Morrow, M. Penwarden, B. Chen, A. Javeed, A. Narayan, and J. D. Jakeman. "SUPN: Shallow Universal Polynomial Networks." arXiv preprint [arXiv:2511.21414](https://arxiv.org/abs/2511.21414) (2025).
+If you use this code in your research, please use the following citations:
 
-[2] Z. Morrow, Y. Fu, P. Roy, and M. Penwarden. "Physics-Informed Shallow Universal Polynomial Networks for High-Frequency and High-Order Systems." In preparation (2026).
+1. Z. Morrow, M. Penwarden, B. Chen, A. Javeed, A. Narayan, and J. D. Jakeman. "SUPN: Shallow Universal Polynomial Networks." arXiv preprint [arXiv:2511.21414](https://arxiv.org/abs/2511.21414) (2025).
+
+2. Z. Morrow, Y. Fu, P. Roy, and M. Penwarden. "Physics-Informed Shallow Universal Polynomial Networks for High-Frequency and High-Order Systems." In preparation (2026).
+
+BibTeX:
+
+```bibtex
+@misc{morrow2025supn,
+    title = {SUPN: Shallow Universal Polynomial Networks},
+    author = {Zachary Morrow and Michael Penwarden and Brian Chen
+              and Aurya Javeed and Akil Narayan and John D. Jakeman},
+    archivePrefix = {arXiv},
+    eprint = {2511.21414},
+    year = {2025},
+}
+```
 

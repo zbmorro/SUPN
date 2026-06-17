@@ -143,7 +143,7 @@ class SUPN(nn.Module):
 
     def dx(self, x: torch.Tensor = None, order: Union[int, list[int]] = 1):
         r'''
-        Returns array of derivatives, size (d, n_x, n_out)
+        Returns array of derivatives, size (len(order), d, n_x, n_out)
 
         Based on f(x) = w^T \tanh (A T(x)) and d(tanh(z))/dz = 1-tanh^2(z)
         '''
