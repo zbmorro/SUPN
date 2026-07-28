@@ -56,8 +56,6 @@ class LowerSet:
                 pivot -= 1
                 if abs(pivot) <= self.d:
                     index[pivot] += 1
-                else:
-                    break
             if abs(pivot) > self.d:
                 break
 

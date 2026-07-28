@@ -19,7 +19,7 @@ license = 'MIT'
 # ]
 
 [project.urls]
-Homepage = 'https://cee-gitlab.sandia.gov/zbmorro/supn'
+Homepage = 'https://github.com/sandialabs/SUPN/' 
 
 [tool.hatch.readme]
 source = 'README.md'
