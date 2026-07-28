@@ -1,7 +1,7 @@
 # Shallow Universal Polynomial Networks
 
-[![pipeline](https://cee-gitlab.sandia.gov/zbmorro/supn/badges/main/pipeline.svg)](https://cee-gitlab.sandia.gov/zbmorro/supn/-/jobs/)
-[![coverage](https://cee-gitlab.sandia.gov/zbmorro/supn/badges/main/coverage.svg?job=test-pytest)](https://cee-gitlab.sandia.gov/zbmorro/supn/-/jobs/)
+[![Python Tests](https://github.com/sandialabs/SUPN/actions/workflows/python-tests.yml/badge.svg)](https://github.com/sandialabs/SUPN/actions/workflows/python-tests.yml)
+[![Coverage](https://github.com/sandialabs/SUPN/blob/gh-pages/badges/coverage.svg)](https://github.com/sandialabs/SUPN/actions)
 [![DOI](https://img.shields.io/badge/any_test-2511.21414-blue?style=flat&label=arXiv&link=https%3A%2F%2Farxiv.org%2Fabs%2F2511.21414)](https://arxiv.org/abs/2511.21414)
 
 SUPNs (Shallow Universal Polynomial Networks) are parsimonious, yet highly expressive, surrogate models of the form
@@ -20,7 +20,7 @@ pip install -e .
 ```
 
 ## Usage
-See the [`tutorials`](https://github.com/) folder.
+See the [`tutorials`](./tutorials/) folder.
 
 ## Dependencies
 
