@@ -102,7 +102,7 @@ def test_precompute_data():
              net.precomputed_chebyshev_matrix.flatten()).norm())
     assert diff < 1e-13, 'Error in three-term recurrence'
 
-    net = SUPN(max_degree=5, width=1, d=1, ntrain=x.shape[0])
+    net = SUPN(max_degree=5, width=1, d=1, x_train=x)
     net.precompute_data(x)
     assert (net(x) == net(x, recompute=True)).all(), 'Error precomputing'
 

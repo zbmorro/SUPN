@@ -6,7 +6,7 @@ from .lower_set import LowerSet
 
 class SUPN(nn.Module):
     def __init__(self, max_degree: int, width: int, d: int = 1,
-                 space: str = 'total_degree', ntrain: int = 0,
+                 space: str = 'total_degree', x_train: torch.Tensor = None,
                  domain_transform: torch.Tensor = None) -> None:
         super().__init__()
         lower_set = LowerSet(d=d, space=space)
@@ -18,11 +18,13 @@ class SUPN(nn.Module):
         self.model.append(nn.Linear(width, 1, bias=False))
         self.precomputed_chebyshev_matrix = None
         self.T_combination = None
-        self.ntrain = ntrain
+        self.x_train = x_train
         self.width = width
         self.d = d
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.set_domain_transform(domain_transform)
+        if self.x_train is not None:
+            self.precompute_data(self.x_train)
         self._reset_parameters()
 
     def set_domain_transform(self, domain_transform:
@@ -48,8 +50,10 @@ class SUPN(nn.Module):
             self.a = domain_transform[:, 0]
 
     def forward(self, x: torch.Tensor, recompute=False) -> torch.Tensor:
-        if (self.precomputed_chebyshev_matrix is not None and x.shape[0] ==
-                self.ntrain and not recompute):  # hardcoded NUM_TRAIN_SAMPLES
+        if (self.precomputed_chebyshev_matrix is not None and
+            self.x_train is not None and
+            x.shape[0] == self.x_train.shape[0] and (
+             torch.allclose(x, self.x_train) and not recompute)):
             chebyshev_mat = self.precomputed_chebyshev_matrix
         else:
             chebyshev_mat = self._form_chebyshev_matrix(self._transform(x))
@@ -136,7 +140,7 @@ class SUPN(nn.Module):
 
     def precompute_data(self, x: torch.Tensor, r_max: int = 4) -> None:
         assert x.ndim == 2 and x.shape[1] == self.d
-        self.ntrain = x.shape[0]
+        self.x_train = x
         self.precomputed_chebyshev_matrix = (
             self._form_chebyshev_matrix(self._transform(x)))
         self.T_combination = self._compute_chebyshev_data(x, r_max)
@@ -162,7 +166,10 @@ class SUPN(nn.Module):
                 'Only analytical derivatives up to order 4 are implemented')
 
         T_combination = (self.T_combination if
-                         ((x is None or x.shape[0] == self.ntrain) and
+                         ((x is None or (
+                           self.x_train is not None and
+                           x.shape[0] == self.x_train.shape[0] and
+                           torch.allclose(x, self.x_train))) and
                           self.T_combination is not None)
                          else self._compute_chebyshev_data(x, max_order))
 
