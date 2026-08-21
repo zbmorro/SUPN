@@ -217,6 +217,10 @@ class SUPN(nn.Module):
         Transform [a_1, b_1] \times \dots \times [a_d, b_d] to [-1, 1]^d
         x: shape (N, d)
         '''
+        outside = torch.logical_or(x < self.a, x > self.a + 2.0 / self.dilation)
+        if outside.any():
+            raise ValueError('Query point outside specified domain, ' +
+                             f'x = {x[outside]}')
         return (x - self.a) * self.dilation - 1.0
 
     def _reset_parameters(self) -> None:
