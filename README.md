@@ -28,7 +28,7 @@ See the [`tutorials`](./tutorials/) folder.
 
 # Acknowledgements
 
-Development of this software was funded by Laboratory-Directed Research and Development (LDRD) program at Sandia National Laboratories.
+Development of this software was funded by the Laboratory-Directed Research and Development (LDRD) program at Sandia National Laboratories.
 
 ## Citations
 

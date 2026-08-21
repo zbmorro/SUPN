@@ -193,3 +193,9 @@ def test_exception_handling():
         net._three_term_recurrence(x, 0)
     except ValueError:
         pass
+
+    # Query point outside domain
+    try:
+        net._transform(2*x)
+    except ValueError:
+        pass
